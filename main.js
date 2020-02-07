@@ -24,7 +24,7 @@ function createNotesHTML(notes) {
 }
 
 function createNoteHTML(note) {
-    return `<div data-note-id="${note.id}">${note.note} <button class="delete">Delete</button></div>`
+    return `<div data-note-id="${note.id}">${note.note} <button class='delete'>Delete</button></div>`
 }
 
 function postNewNote(noteText) {
@@ -37,6 +37,7 @@ function postNewNote(noteText) {
 }
 
 function renderNotesList(notes) {
+    console.log('renderNotesList', notes)
     const notesHTML = createNotesHTML(notes)
     const notesSection = qs('#notes')
     notesSection.innerHTML = notesHTML
@@ -60,9 +61,10 @@ qs('#new-notes-form').addEventListener('submit', event => {
 })
 
 qs('#notes').addEventListener('click', event => {
+    event.preventDefault()
     if (event.target.matches('.delete')) {
-        print('delete ' + event.target.parentElement.dataset.noteID)
-        return fetch ('http://localhost:3000/notes/' + event.target.parentElement.dataset.noteID),
-        { method: 'DELETE'}
+        print('delete ' + event.target.parentElement.dataset.noteId)
+        return fetch (('http://localhost:3000/notes/' + event.target.parentElement.dataset.noteId),
+        { method: 'DELETE' })
     } 
 })
