@@ -16,7 +16,7 @@ function getAllNotes() {
 
 function createNotesHTML(notes) {
     let notesStr = '<div id="notes-list">'
-    for (note of notes) {
+    for (const note of notes) {
         notesStr += createNoteHTML(note)
     }
     notesStr += '</div>'
@@ -31,7 +31,7 @@ function postNewNote(noteText) {
     return fetch('http://localhost:3000/notes/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json '},
-        body: JSON.stringify({ note: noteText, done: false })
+        body: JSON.stringify({ note: noteText, done: false, created: moment().format('MMM Do YYYY') })
     })
     .then(response => response.json())
 }
@@ -62,5 +62,7 @@ qs('#new-notes-form').addEventListener('submit', event => {
 qs('#notes').addEventListener('click', event => {
     if (event.target.matches('.delete')) {
         print('delete ' + event.target.parentElement.dataset.noteID)
+        return fetch ('http://localhost:3000/notes/' + event.target.parentElement.dataset.noteID),
+        { method: 'DELETE'}
     } 
 })
