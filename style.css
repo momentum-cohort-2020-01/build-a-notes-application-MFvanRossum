@@ -18,6 +18,11 @@ html, body {
     margin-bottom: 2rem;
 }
 
+.note {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .notes {
     margin-top: 1rem;
     border-top: 1px solid #EEE;
@@ -38,6 +43,11 @@ html, body {
     font-size: 100%;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.title {
+    font-weight: bold;
 }
 
 .note-text {
@@ -59,4 +69,18 @@ html, body {
     border: 1px solid #999;
     border-radius: 5px;
     padding: 0.25rem 0.5rem;
+}
+
+.delete {
+    display: inline-block;
+    margin: 0.2rem;
+}
+
+.edit {
+    display: inline-block;
+    margin: 0.2rem;
+}
+
+.created {
+    font-size: 10px;
 }

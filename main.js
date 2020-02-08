@@ -24,7 +24,10 @@ function createNotesHTML(notes) {
 }
 
 function createNoteHTML(note) {
-    return `<div data-note-id="${note.id}">${note.note} <button class='delete'>Delete</button></div>`
+    return `<div data-note-id="${note.id}">${note.note}</div>
+            <div class='created'>${note.created}<br>
+            <button class='edit'>Edit</button>
+            <button class='delete'>Delete</button></div>`
 }
 
 function postNewNote(noteText) {
@@ -68,3 +71,20 @@ qs('#notes').addEventListener('click', event => {
         { method: 'DELETE' })
     } 
 })
+
+// function deleteThisNote (noteId) {
+//     return fetch ('http://localhost:3000/notes/' + noteId, {
+//         method: 'DELETE',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({note:noteId, done: false, created: moment().format('MMM Do YYYY')})
+//     })
+//     .then(response => response.json())
+// }
+
+// qs('#notes').addEventListener('click', event => {
+//     event.preventDefault()
+//     if (event.target.matches('.delete')) {
+//         let noteId = (event.target.parentElement.dataset.noteId)
+//         deleteThisNote(noteId)
+//     }
+// })
