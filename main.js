@@ -60,11 +60,32 @@ qs('#new-notes-form').addEventListener('submit', event => {
     postNewNote(noteText).then(renderNewNote)
 })
 
-qs('#notes').addEventListener('click', event => {
-    event.preventDefault()
-    if (event.target.matches('.delete')) {
-        print('delete ' + event.target.parentElement.dataset.noteId)
-        return fetch (('http://localhost:3000/notes/' + event.target.parentElement.dataset.noteId),
-        { method: 'DELETE' })
-    } 
-})
+// qs('#notes').addEventListener('click', event => {
+//     event.preventDefault()
+//     if (event.target.matches('.delete')) {
+//         print('delete ' + event.target.parentElement.dataset.noteId)
+//         return fetch (('http://localhost:3000/notes/' + event.target.parentElement.dataset.noteId),
+//         { method: 'DELETE' })
+//     } 
+// })
+
+function deleteThisNote(noteId) {
+    return fetch('http://localhost:3000/notes/' + noteId, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({note: noteId, done: false, created: moment().format('MMM Do YYYY')})
+    })
+    .then(response => response.json())
+}
+
+function deleteNote() {
+    qs('#notes').addEventListener('click', event=>{
+        if (event.target.matches('.delete')) {
+            // event.target.parentElement.classList.add('noteToDelete')
+            let noteId = (event.target.parentElement.dataset.noteId)
+            deleteThisNote(noteId)
+        }
+    })
+}
+
+deleteNote()
