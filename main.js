@@ -24,7 +24,10 @@ function createNotesHTML(notes) {
 }
 
 function createNoteHTML(note) {
-    return `<div data-note-id="${note.id}">${note.note} <button class='delete'>Delete</button></div>`
+    return `<div data-note-id="${note.id}">${note.note}</div>
+            <div class='created'>${note.created}<br>
+            <button class='edit'>Edit</button>
+            <button class='delete'>Delete</button></div>`
 }
 
 function postNewNote(noteText) {
