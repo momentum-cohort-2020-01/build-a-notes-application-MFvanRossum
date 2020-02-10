@@ -10,6 +10,16 @@ html, body {
     color: rgb(166,	171, 174);
 }
 
+h1 {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.create {
+    background-color: #75afc9;
+    color: #ededed;
+}
+
 .main {
     max-width: 40rem;
     padding: 0 2rem;
@@ -19,6 +29,7 @@ html, body {
 .note-container {
     margin: 1rem;
     border: 1px solid #75afc9;
+    background-color: rgb(48, 47, 47);
     border-radius: 10px;
     padding: 10px;
     padding-bottom: 0px;
@@ -56,6 +67,8 @@ html, body {
 
 .title {
     font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
     margin-bottom: 5px;
 }
 
@@ -88,14 +101,22 @@ html, body {
     display: inline-block;
     margin: 0.2rem;
     margin-top: 7px;
+    margin-bottom: 4px;
     padding: 2px;
+    background-color: #75afc9;
+    color: #ededed;
+    border-radius: 5px;
 }
 
 .edit {
     display: inline-block;
     margin: 0.2rem;
     margin-top: 7px;
+    margin-bottom: 4px;
     padding: 2px;
+    background-color: #75afc9;
+    color: #ededed;
+    border-radius: 5px;
 }
 
 .created {
