@@ -67,3 +67,23 @@ qs('#notes').addEventListener('click', event => {
         { method: 'DELETE'}
     } 
 })
+
+function deleteThisNote(noteId) {
+    return fetch('http://localhost:3000/notes/' + noteId, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({note: noteId, done: false, created: moment().format('MMM Do YYYY')})
+    })
+    .then(response => response.json())
+}
+
+function deleteNote() {
+    qs('#notes').addEventListener('click', event=> {
+        if (event.target.matches('.delete')) {
+            let noteId = (event.target.parentElement.dataset.noteId)
+            deleteThisNote(noteId)
+        }
+    })
+}
+
+deleteNote()
