@@ -16,7 +16,7 @@ function getAllNotes() {
     return fetch('http://localhost:3000/notes/', {
         method: 'GET'
     })
-    .then(response => response.json())
+        .then(response => response.json())
 }
 
 function createNotesHTML(notes) {
@@ -29,16 +29,16 @@ function createNotesHTML(notes) {
 }
 
 function createNoteHTML(note) {
-    return `<div class="title" data-note-id="${note.id}">${note.title}</div><div class="text" data-note-id=${note.id}> ${note.note} <br><button class="edit">Edit</button><button class="delete">Delete</button></div>`
+    return `<div class="note-container" data-note-id="${note.id}"><div class="title" data-note-id="${note.id}">${note.title}</div><div class="text" data-note-id=${note.id}> ${note.note}<br><button class="edit">Edit</button><button class="delete">Delete</button></div></div>`
 }
 
 function postNewNote(noteTitle, noteText) {
     return fetch('http://localhost:3000/notes/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json '},
+        headers: { 'Content-Type': 'application/json ' },
         body: JSON.stringify({ title: noteTitle, note: noteText, created: moment().format('MMM Do YYYY') })
     })
-    .then(response => response.json())
+        .then(response => response.json())
 }
 
 function renderNotesList(notes) {
@@ -78,14 +78,14 @@ qs('#new-notes-form').addEventListener('submit', event => {
 function deleteThisNote(noteId) {
     return fetch('http://localhost:3000/notes/' + noteId, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({note: noteId, created: moment().format('MMM Do YYYY')})
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ note: noteId, created: moment().format('MMM Do YYYY') })
     })
-    .then(response => response.json())
+        .then(response => response.json())
 }
 
 function deleteNote() {
-    qs('#notes').addEventListener('click', event=> {
+    qs('#notes').addEventListener('click', event => {
         event.preventDefault()
         if (event.target.matches('.delete')) {
             let noteId = (event.target.parentElement.dataset.noteId)
@@ -97,10 +97,10 @@ function deleteNote() {
 function editThisNote(noteId, editedNote) {
     return fetch('http://localhost:3000/notes/' + noteId, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({note: editedNote.value, edited: moment().format('MMM Do YYYY')})
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ note: editedNote.value, edited: moment().format('MMM Do YYYY') })
     })
-    .then(response => response.json())
+        .then(response => response.json())
 }
 
 function editNote() {
@@ -108,17 +108,18 @@ function editNote() {
         if (event.target.matches('.edit')) {
             event.preventDefault();
             event.target.parentElement.classList.add('noteToEdit')
-            event.target.parentElement.value=''
+            event.target.parentElement.value = ''
             let newEditForm = event.target.parentElement.appendChild(newForm)
             let editedNote = newEditForm.appendChild(newInput)
             editedNote.parentElement.classList.add('editClass')
-                qs(".editClass").addEventListener('submit', event=>{
-                    event.preventDefault();
-                    let noteId = (event.target.parentElement.dataset.noteId)
-                    editThisNote(noteId, editedNote)
-                })
+            editedNote.classList.add('note-text')
+            qs(".editClass").addEventListener('submit', event => {
+                event.preventDefault();
+                let noteId = (event.target.parentElement.dataset.noteId)
+                editThisNote(noteId, editedNote)
+            })
         }
-    }, 
+    },
     )
 }
 
