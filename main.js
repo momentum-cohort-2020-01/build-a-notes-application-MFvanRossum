@@ -29,14 +29,18 @@ function createNotesHTML(notes) {
 }
 
 function createNoteHTML(note) {
-    return `<div class="note-container" data-note-id="${note.id}"><div class="title" data-note-id="${note.id}">${note.title}</div><div class="text" data-note-id=${note.id}> ${note.note}<br><button class="edit">Edit</button><button class="delete">Delete</button></div></div>`
+    return `<div class="note-container" data-note-id="${note.id}">
+    <div class="title" data-note-id="${note.id}">${note.title}</div>
+    <div class="text" data-note-id=${note.id}> ${note.note}<br></div>
+    <div class="created"> ${note.created}</div>
+    <button class="edit">Edit</button><button class="delete">Delete</button></div></div>`
 }
 
 function postNewNote(noteTitle, noteText) {
     return fetch('http://localhost:3000/notes/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json ' },
-        body: JSON.stringify({ title: noteTitle, note: noteText, created: moment().format('MMM Do YYYY') })
+        body: JSON.stringify({ title: noteTitle, note: noteText, created: moment().format('MMM Do YYYY, h:mm a') })
     })
         .then(response => response.json())
 }
@@ -79,7 +83,7 @@ function deleteThisNote(noteId) {
     return fetch('http://localhost:3000/notes/' + noteId, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ note: noteId, created: moment().format('MMM Do YYYY') })
+        body: JSON.stringify({ note: noteId, created: moment().format('MMM Do YYYY, h:mm a') })
     })
         .then(response => response.json())
 }
