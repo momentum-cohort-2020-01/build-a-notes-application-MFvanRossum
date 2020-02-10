@@ -1,3 +1,8 @@
+let editTextBox = qs('#note-text')
+let editInput = qs('edit-text')
+var newInput = document.createElement('input')
+var newForm = document.createElement('form')
+
 function print(value) {
     console.log(value)
     return value
@@ -24,7 +29,7 @@ function createNotesHTML(notes) {
 }
 
 function createNoteHTML(note) {
-    return `<div data-note-id="${note.id}">${note.note} <button class="delete">Delete</button></div>`
+    return `<div data-note-id="${note.id}">${note.note} <br><button class="edit">Edit</button><button class="delete">Delete</button></div>`
 }
 
 function postNewNote(noteText) {
@@ -86,4 +91,33 @@ function deleteNote() {
     })
 }
 
+function editThisNote(noteId, editedNote) {
+    return fetch('http://localhost:3000/notes/' + noteId, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({note: editedNote.value, done: false, edited: moment().format('MMM Do YYYY')})
+    })
+    .then(response => response.json())
+}
+
+function editNote() {
+    qs('#notes').addEventListener('click', event => {
+        if (event.target.matches('.edit')) {
+            event.preventDefault();
+            event.target.parentElement.classList.add('noteToEdit')
+            event.target.parentElement.value=''
+            let newEditForm = event.target.parentElement.appendChild(newForm)
+            let editedNote = newEditForm.appendChild(newInput)
+            editedNote.parentElement.classList.add('editClass')
+                qs(".editClass").addEventListener('submit', event=>{
+                    event.preventDefault();
+                    let noteId = (event.target.parentElement.dataset.noteId)
+                    editThisNote(noteId, editedNote)
+                })
+        }
+    }, false 
+    )
+}
+
 deleteNote()
+editNote()
